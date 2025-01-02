@@ -1,0 +1,67 @@
+/* Hero.css */
+
+/* Carousel container */
+.hero-container {
+  width: 100%;
+  max-width: 100%;
+  margin: auto;
+}
+
+/* Image styling */
+.hero-image {
+  width: 100%;
+  height: 695px;
+  object-fit: cover;
+  filter: brightness(60%);
+}
+
+/* Overlay styling */
+.hero-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 90%;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Title styling */
+.hero-title {
+  margin-bottom: 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+/* Description styling */
+.hero-description {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  font-style: italic;
+    margin-bottom: 30px;
+}
+
+/* Date styling */
+.hero-date {
+  margin-bottom: 15px;
+  font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+/* Button styling */
+.hero-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #FF6F61;
+  transition: background-color 0.3s ease;
+}
+
+.hero-button:hover {
+  background-color: #FF5733;
+}

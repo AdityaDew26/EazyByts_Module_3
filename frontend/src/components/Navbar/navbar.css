@@ -1,0 +1,41 @@
+.navbar{
+    height: 100px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.43);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 12;
+}
+
+.nav-links{
+    gap: 40px;
+    display: flex;
+}
+
+.nav-links li{
+    list-style: none;
+
+}
+
+
+.nav-item{
+    text-decoration: none;
+    color: white;
+    transition: 0.5s;
+}
+
+.nav-item:hover{
+ color: rgb(6, 221, 196);
+ text-decoration: none;
+}
+
+.nav-item:active{
+    color: rgb(12, 161, 144);
+
+}
+
+
+.nav-item:hover{
+color: rgb(6, 221, 196);
+}

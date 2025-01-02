@@ -1,0 +1,90 @@
+/* login.css */
+
+/* Ensure the body takes full height */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.image {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.image img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  filter: brightness(50%); /* Darkens the image for better contrast */
+}
+
+/* Center the form container */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(244, 246, 248, 0.8); /* Slight transparency for background */
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  min-width: 300px;
+  z-index: 1;
+}
+
+.login-container h5 {
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.text-field {
+  margin-bottom: 16px;
+}
+
+.password-toggle {
+  cursor: pointer;
+}
+
+.submit-button {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.signup-link {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.signup-link a {
+  color: #007bff;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}

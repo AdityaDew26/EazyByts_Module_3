@@ -1,0 +1,32 @@
+.event-details-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-image {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  object-fit: contain;
+}
+
+.reviews-section {
+  margin-top: 30px;
+}
+
+.review {
+  background-color: #fff;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-review {
+  margin-top: 20px;
+}

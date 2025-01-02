@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Music Concert",
+    "description": "An exciting music concert featuring top artists.",
+    "date": "2024-08-15T19:00:00Z",
+    "location": "City Arena, Downtown",
+    "createdAt": "2024-07-10T14:30:00Z",
+    "price": 50,
+    "image": "https://images.pexels.com/photos/845452/pexels-photo-845452.jpeg"
+  },
+  {
+    "title": "Tech Conference 2024",
+    "description": "Join us for a groundbreaking tech conference.",
+    "date": "2024-09-01T09:00:00Z",
+    "location": "TechHub Conference Center, Silicon Valley",
+    "createdAt": "2024-07-20T10:00:00Z",
+    "price": 100,
+    "image": "https://images.pexels.com/photos/3182762/pexels-photo-3182762.jpeg"
+  },
+  {
+    "title": "Food Festival",
+    "description": "A festival celebrating food from around the world.",
+    "date": "2024-09-10T12:00:00Z",
+    "location": "Main Square, City Park",
+    "createdAt": "2024-08-01T15:00:00Z",
+    "price": 25,
+    "image": "https://images.pexels.com/photos/724578/pexels-photo-724578.jpeg"
+  },
+  {
+    "title": "Art Exhibition",
+    "description": "Explore modern art at our latest exhibition.",
+    "date": "2024-09-15T18:00:00Z",
+    "location": "Art Gallery, Downtown",
+    "createdAt": "2024-08-05T13:00:00Z",
+    "price": 30,
+    "image": "https://images.pexels.com/photos/2252308/pexels-photo-2252308.jpeg"
+  },
+  {
+    "title": "Charity Gala",
+    "description": "An elegant evening supporting a great cause.",
+    "date": "2024-10-01T20:00:00Z",
+    "location": "Grand Ballroom, City Hotel",
+    "createdAt": "2024-08-10T11:00:00Z",
+    "price": 150,
+    "image": "https://images.pexels.com/photos/3631087/pexels-photo-3631087.jpeg"
+  },
+  {
+    "title": "Science Fair 2024",
+    "description": "A showcase of the latest innovations in science.",
+    "date": "2024-09-25T10:00:00Z",
+    "location": "Innovation Center, Tech Park",
+    "createdAt": "2024-08-20T12:30:00Z",
+    "price": 20,
+    "image": "https://images.pexels.com/photos/1181261/pexels-photo-1181261.jpeg"
+  },
+  {
+    "title": "Fashion Show",
+    "description": "Experience the latest trends in fashion.",
+    "date": "2024-10-10T18:30:00Z",
+    "location": "Fashion Hall, City Mall",
+    "createdAt": "2024-08-25T09:00:00Z",
+    "price": 80,
+    "image": "https://images.pexels.com/photos/709366/pexels-photo-709366.jpeg"
+  },
+  {
+    "title": "Startup Pitch Night",
+    "description": "A platform for entrepreneurs to showcase their startups.",
+    "date": "2024-10-15T19:00:00Z",
+    "location": "Pitch Arena, Startup Hub",
+    "createdAt": "2024-08-30T16:45:00Z",
+    "price": 40,
+    "image": "https://images.pexels.com/photos/1002647/pexels-photo-1002647.jpeg"
+  },
+  {
+    "title": "Outdoor Yoga Retreat",
+    "description": "Relax and rejuvenate in a serene outdoor setting.",
+    "date": "2024-11-05T07:00:00Z",
+    "location": "Mountain View Park, Green Valley",
+    "createdAt": "2024-09-02T08:30:00Z",
+    "price": 60,
+    "image": "https://images.pexels.com/photos/4361563/pexels-photo-4361563.jpeg"
+  },
+  {
+    "title": "Film Festival",
+    "description": "A celebration of independent and international cinema.",
+    "date": "2024-11-20T10:00:00Z",
+    "location": "Cineplex Theater, Downtown",
+    "createdAt": "2024-09-10T11:30:00Z",
+    "price": 50,
+    "image": "https://images.pexels.com/photos/3090657/pexels-photo-3090657.jpeg"
+  }
+]
