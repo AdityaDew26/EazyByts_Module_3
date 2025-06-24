@@ -1,146 +1,165 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import {
+  TextField, Button, Stack, Typography, Paper, InputAdornment, Snackbar, Alert
+} from '@mui/material';
+import API from '../../api/EventApi';
 import { useParams, useNavigate } from 'react-router-dom';
-import { TextField, Button, Grid, Typography, Box, Paper } from '@mui/material';
 
 const UpdateEvent = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [event, setEvent] = useState({
+
+  const [form, setForm] = useState({
     title: '',
     description: '',
     date: '',
     location: '',
+    ticketPrice: '',
+    availableSpots: '',
     image: null,
   });
-  const [file, setFile] = useState(null);
+
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
+
+  const showSnackbar = (message, severity = 'success') => {
+    setSnackbar({ open: true, message, severity });
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
+
+  const fetchEventDetails = async () => {
+    try {
+      const res = await API.get(`/events/${id}`);
+      setForm(res.data);
+    } catch (err) {
+      console.error('Fetch Event Error:', err);
+      showSnackbar('❌ Failed to load event details', 'error');
+    }
+  };
 
   useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/events/${id}`);
-        setEvent(response.data || {});
-      } catch (error) {
-        console.error('Error fetching event:', error);
-      }
-    };
-    fetchEvent();
-  }, [id]);
+    fetchEventDetails();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEvent((prevEvent) => ({
-      ...prevEvent,
-      [name]: value || '',
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
     }));
   };
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    setForm((prev) => ({
+      ...prev,
+      image: e.target.files[0],
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
-    formData.append('title', event.title);
-    formData.append('description', event.description);
-    formData.append('date', event.date);
-    formData.append('location', event.location);
-
-    if (file) {
-      formData.append('image', file);
+    for (let key in form) {
+      formData.append(key, form[key]);
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/events/${id}`, formData, {
+      await API.put(`/events/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
-      navigate(`/events/:id`);
-    } catch (error) {
-      console.error('Error updating event:', error);
+      showSnackbar('✅ Event updated successfully!');
+      setTimeout(() => navigate('/manage'), 1500);
+    } catch (err) {
+      console.error('Update Error:', err);
+      showSnackbar('❌ Failed to update event.', 'error');
     }
   };
 
   return (
-    <Box sx={{ padding: 4 }}>
-      <Paper sx={{ padding: 3, maxWidth: 600, margin: 'auto' }}>
-        <Typography variant="h4" gutterBottom>
-          Update Event
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                label="Event Title"
-                fullWidth
-                name="title"
-                value={event.title || ''}
-                onChange={handleChange}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Event Description"
-                fullWidth
-                name="description"
-                value={event.description || ''}
-                onChange={handleChange}
-                variant="outlined"
-                multiline
-                rows={4}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Event Date"
-                fullWidth
-                type="date"
-                name="date"
-                value={event.date || ''}
-                onChange={handleChange}
-                variant="outlined"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Event Location"
-                fullWidth
-                name="location"
-                value={event.location || ''}
-                onChange={handleChange}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <input
-                type="file"
-                onChange={handleFileChange}
-                accept="image/*"
-                style={{ marginTop: 8 }}
-              />
-            </Grid>
-            <Grid item xs={12} display="flex" justifyContent="center">
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                sx={{ marginTop: 2 }}
-              >
-                Update Event
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
+    <>
+      <Paper elevation={4} sx={{ p: 4, maxWidth: 600, mx: 'auto', mt: 5 }}>
+        <Typography variant="h5" mb={2}>Update Event</Typography>
+        <Stack component="form" spacing={2} onSubmit={handleSubmit}>
+          <TextField
+            label="Event Title"
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            required
+          />
+          <TextField
+            label="Description"
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            multiline
+            rows={3}
+            required
+          />
+          <TextField
+            label="Date"
+            name="date"
+            type="date"
+            value={form.date?.slice(0, 10)}
+            onChange={handleChange}
+            InputLabelProps={{ shrink: true }}
+            required
+          />
+          <TextField
+            label="Location"
+            name="location"
+            value={form.location}
+            onChange={handleChange}
+            required
+          />
+          <TextField
+            label="Ticket Price"
+            name="ticketPrice"
+            type="number"
+            value={form.ticketPrice}
+            onChange={handleChange}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">₹</InputAdornment>,
+            }}
+            required
+          />
+          <TextField
+            label="Available Spots"
+            name="availableSpots"
+            type="number"
+            value={form.availableSpots}
+            onChange={handleChange}
+            required
+          />
+          <Button variant="outlined" component="label">
+            Upload New Image
+            <input type="file" hidden onChange={handleFileChange} />
+          </Button>
+          <Button type="submit" variant="contained" color="primary">
+            Update Event
+          </Button>
+        </Stack>
       </Paper>
-    </Box>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity={snackbar.severity} variant="filled" onClose={handleCloseSnackbar}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+    </>
   );
 };
 

@@ -6,10 +6,14 @@ const eventSchema = new mongoose.Schema({
   date: Date,
   location: String,
   price: Number,
-  availableSpots: {
-    type: Number,
-    required: true,
-  },
+ availableSpots: {
+  type: Number,
+  required: true,
+},
+ticketPrice: {
+  type: Number,
+  required: true,
+},
   image: String,
   reviews: [Object],
 });

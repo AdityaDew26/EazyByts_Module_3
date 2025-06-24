@@ -13,11 +13,13 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [avatar, setAvatar] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleClickShowConfirmPassword = () =>setShowConfirmPassword(!showConfirmPassword)
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -31,16 +33,22 @@ const Signup = () => {
         email,
         password,
         avatar,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
-      
+
       const data = response.data;
       if (data.token) {
         localStorage.setItem('token', data.token);
         navigate('/');
+      } else {
+        alert('Signup failed. Please try again.');
       }
     } catch (error) {
-      console.error("Error signing up", error);
-      alert("Error signing up");
+      console.error("Error signing up:", error);
+      alert("Signup failed: " + (error.response?.data?.message || error.message));
     }
   };
 
@@ -86,11 +94,20 @@ const Signup = () => {
           />
           <TextField
             label="Confirm Password"
-            type={showPassword ? 'text' : 'password'}
+            type={showConfirmPassword ? 'text' : 'password'}
             fullWidth
             margin="normal"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+             InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleClickShowConfirmPassword}>
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button type="submit" variant="outlined" fullWidth sx={{ mt: 2 }}>
             Sign Up

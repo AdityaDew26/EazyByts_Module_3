@@ -1,129 +1,59 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { TextField, Button } from '@mui/material';
-import './create.css';
-import { useNavigate } from 'react-router-dom';
+import { TextField, Button, Paper, Typography, Stack } from '@mui/material';
+import API from '../../api/EventApi';
 
-const CreateEvent = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
-  const [location, setLocation] = useState('');
-  const [ticketPrice, setTicketPrice] = useState(''); // State for ticket price
-  const [image, setImage] = useState(null); // State to hold the image file
-  const [imageUrl, setImageUrl] = useState(''); // State to hold the image URL (for preview)
-  const navigate = useNavigate();
+const EventForm = () => {
+  const [form, setForm] = useState({
+    title: '',
+    description: '',
+    date: '',
+    location: '',
+    ticketPrice: '',
+    availableSpots: '',
+  });
+  const [image, setImage] = useState(null);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageUrl(reader.result); // Set the image URL for preview
-      };
-      reader.readAsDataURL(file); // Read the file as a data URL
-    }
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleImage = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Prepare the form data
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('date', date);
-    formData.append('location', location);
-    formData.append('ticketPrice', ticketPrice); // Append ticketPrice
-    if (image) {
-      formData.append('image', image); // Append image file if available
+    for (const key in form) {
+      formData.append(key, form[key]);
     }
+    if (image) formData.append('file', image);
 
-    // Send form data to the backend
-    axios
-      .post('http://localhost:5000/api/events/add', formData)
-      .then((response) => {
-        console.log('Event created:', response.data);
-        alert('Event added successfully');
-        setTitle('');
-        setDescription('');
-        setDate('');
-        setLocation('');
-        setTicketPrice(''); // Reset ticket price state
-        setImage(null); // Reset image state
-        setImageUrl(''); // Reset image preview
-        navigate('/dashboard');
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        alert('Error adding event');
+    try {
+      await API.post('/events/add', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
+      alert('Event Created!');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <div className="create-event-container">
-      <h2>Add Event</h2>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Title"
-          fullWidth
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <TextField
-          label="Description"
-          fullWidth
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <TextField
-          type="date"
-          label="Date"
-          fullWidth
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-        <TextField
-          label="Location"
-          fullWidth
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-
-        {/* Ticket Price Input */}
-        <TextField
-          label="Ticket Price"
-          fullWidth
-          type="number"
-          value={ticketPrice}
-          onChange={(e) => setTicketPrice(e.target.value)}
-          InputProps={{
-            startAdornment: <span>$</span>, // Optional dollar sign before the input
-          }}
-        />
-
-        {/* File input for image */}
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-
-        {/* Display image preview */}
-        {imageUrl && (
-          <div className="image-preview">
-            <h4>Image Preview:</h4>
-            <img src={imageUrl} alt="Preview" style={{ width: '100%', maxHeight: '300px', objectFit: 'cover' }} />
-          </div>
-        )}
-
-        <Button type="submit" variant="contained">
-          Add Event
-        </Button>
-      </form>
-    </div>
+    <Paper sx={{ p: 4 }}>
+      <Typography variant="h6">Create New Event</Typography>
+      <Stack spacing={2} component="form" onSubmit={handleSubmit}>
+        <TextField label="Title" name="title" fullWidth onChange={handleChange} />
+        <TextField label="Description" name="description" fullWidth multiline onChange={handleChange} />
+        <TextField label="Date" name="date" type="date" InputLabelProps={{ shrink: true }} onChange={handleChange} />
+        <TextField label="Location" name="location" fullWidth onChange={handleChange} />
+        <TextField label="Ticket Price" name="ticketPrice" type="number" onChange={handleChange} />
+        <TextField label="Available Spots" name="availableSpots" type="number" onChange={handleChange} />
+        <input type="file" accept="image/*" onChange={handleImage} />
+        <Button variant="contained" type="submit">Create Event</Button>
+      </Stack>
+    </Paper>
   );
 };
 
-export default CreateEvent;
+export default EventForm;

@@ -1,40 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import './eventList.css';
+import React, { useEffect, useState } from 'react';
+import {
+  Card, CardMedia, CardContent, Typography, Grid, Button, Box
+} from '@mui/material';
+import API from '../../api/EventApi';
+import { useNavigate } from 'react-router-dom';
+import './eventlist.css';
 
 const EventList = () => {
-  const [events, setEvents] = useState([]);
+  const [eventList, setEventList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/events/')
-      .then((response) => setEvents(response.data))
-      .catch((error) => console.error('Error fetching events:', error));
+    API.get('/events')
+      .then((res) => setEventList(res.data))
+      .catch((err) => console.error('Fetch error:', err));
   }, []);
 
   return (
-    <div className="event-list">
-      <h2>Upcoming Events</h2>
-      <div className="event-cards">
-        {events.map((event) => (
-          <div className="event-card" key={event._id}>
-            {/* Use event.image URL */}
-            {event.image ? (
-              <img src={event.image} alt={event.title} className="event-image" />
-            ) : (
-              <div className="placeholder-image">No Image</div>
-            )}
-            <div className="event-info">
-              <h3>{event.title}</h3>
-              <p>{event.description}</p>
-              <Link to={`/event/${event._id}`}>
-                <button className="view-button">View</button>
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <Grid container spacing={3}>
+      {eventList.length === 0 ? (
+        <Typography>No events found.</Typography>
+      ) : (
+        eventList.map((event) => (
+          <Grid item key={event._id} xs={12} sm={6} md={4}>
+            <Card>
+              {event.image && (
+                <CardMedia
+                  component="img"
+                  height="160"
+                  image={`http://localhost:5000/${event.image}`}
+                  alt={event.title}
+                />
+              )}
+              <CardContent>
+                <Typography variant="h6">{event.title}</Typography>
+                <Typography variant="body2">{event.description}</Typography>
+                <Typography variant="caption" display="block" gutterBottom>
+                  📍 {event.location}
+                </Typography>
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{ mt: 1 }}
+                  onClick={() => navigate(`/event/${event._id}`)}
+                >
+                  View Details
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))
+      )}
+    </Grid>
   );
 };
 
