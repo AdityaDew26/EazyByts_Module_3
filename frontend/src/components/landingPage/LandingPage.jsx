@@ -1,7 +1,7 @@
 import React from 'react'
 import Hero from './hero/Hero'
 import Navbar from "../Navbar/Navbar";
-import EventList from '../../admin/eventList/EventList';
+import EventCard from './EventCard/EventCard'
 import Footer from '../Footer/Footer';
 
 
@@ -11,7 +11,7 @@ function LandingPage() {
     <div>
       <Navbar/>
       <Hero/>
-      <EventList/>
+      <EventCard/>
       <Footer/>
     </div>
   )

@@ -1,0 +1,73 @@
+// src/Data/eventsData.js
+export const eventsData = [
+  {
+    _id: '1',
+    title: 'Music Concert',
+    description: 'Enjoy live music from popular bands.',
+    date: '2025-07-15',
+    image: 'https://source.unsplash.com/400x300/?concert,music',
+  },
+  {
+    _id: '2',
+    title: 'Art Exhibition',
+    description: 'Explore modern art and sculpture.',
+    date: '2025-07-20',
+    image: 'https://source.unsplash.com/400x300/?art,exhibition',
+  },
+  {
+    _id: '3',
+    title: 'Tech Conference',
+    description: 'Join top minds in the tech industry.',
+    date: '2025-08-01',
+    image: 'https://source.unsplash.com/400x300/?technology,conference',
+  },
+  {
+    _id: '4',
+    title: 'Food Festival',
+    description: 'Taste a variety of dishes from around the world.',
+    date: '2025-08-10',
+    image: 'https://source.unsplash.com/400x300/?food,festival',
+  },
+  {
+    _id: '5',
+    title: 'Startup Meetup',
+    description: 'Network with entrepreneurs and investors.',
+    date: '2025-08-18',
+    image: 'https://source.unsplash.com/400x300/?startup,meeting',
+  },
+  {
+    _id: '6',
+    title: 'Yoga Workshop',
+    description: 'A peaceful session to refresh your mind and body.',
+    date: '2025-08-25',
+    image: 'https://source.unsplash.com/400x300/?yoga,wellness',
+  },
+  {
+    _id: '7',
+    title: 'Photography Walk',
+    description: 'Capture stunning photos during a guided tour.',
+    date: '2025-09-01',
+    image: 'https://source.unsplash.com/400x300/?photography,walk',
+  },
+  {
+    _id: '8',
+    title: 'Book Fair',
+    description: 'Discover new books and meet authors.',
+    date: '2025-09-07',
+    image: 'https://source.unsplash.com/400x300/?books,fair',
+  },
+  {
+    _id: '9',
+    title: 'Coding Bootcamp',
+    description: 'Intensive coding sessions for beginners.',
+    date: '2025-09-14',
+    image: 'https://source.unsplash.com/400x300/?coding,bootcamp',
+  },
+  {
+    _id: '10',
+    title: 'Environmental Awareness Drive',
+    description: 'Participate in making the world greener.',
+    date: '2025-09-22',
+    image: 'https://source.unsplash.com/400x300/?environment,green',
+  },
+];
